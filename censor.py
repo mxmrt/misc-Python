@@ -1,24 +1,36 @@
 """
-    I recently took a web course through http://www.codecademy.com to brush up 
-    on my Python skills. There was one exercise that asked the user to create a 
-    function that would take two strings: the first is a text string, and second
-    is a text string of a word to be censored out with asterisks. However, I 
-    thought I would take the exercise a bit further replace parts of words that 
-    matched the word to be censored. This is somewhat similar to the "replace" 
-    method. 
+    Synopsis:
+        I recently took a web course through http://www.codecademy.com to brush 
+        up on my Python skills. There was one exercise that asked the user to 
+        create a function that would take two strings: the first is a text 
+        string, and second is a text string of a word to be censored out with 
+        asterisks. However, I thought I would take the exercise a bit further 
+        replace parts of words that matched the word to be censored. This is 
+        somewhat similar to the "replace" method. 
+    
+    Updates:
+        Should be able to handle different casing though I have not thoroughly 
+        tested this. 
+    
+    Planned Updates:
+        My next steps with this code may be to better account for different 
+        letter casing as well as punctuation.
+    
 """
 
 def censor(text, word):
     
     """
+    
     This censor function searches the text string for the word string and 
     replaces matches with asterisks. We assume the input strings won't contain 
-    punctuation or upper case letters.
+    punctuation or upper case letters. [see planned updates]
     
     For example if I am censoring the word "hack" from a sentence consisting of 
     the word "hacking," it should be converted to "****ing."
-    """
     
+    """
+    word = word.lower()
     if len(text) < len(word):
         
         # If length of text string is longer than length of word string,
@@ -38,7 +50,7 @@ def censor(text, word):
         # of the word string appears, and add the index of this 
         # location to possible locations 
            
-            if text[i] == word[0]:
+            if text.lower()[i] == word[0]:
                 possible_locations.append(i)
         
         # print possible_locations  # for testing only
@@ -64,7 +76,7 @@ def censor(text, word):
             
             j, still_possible = 0, True
             while still_possible == True and j < len(word):
-                if text[i+j] != word[j]:
+                if text.lower()[i+j] != word[j]:
                     still_possible = False
                 j += 1
             if still_possible == True:
@@ -81,12 +93,13 @@ def censor(text, word):
     print result # for testing only     
     return result 
     
-"""
-Here are som examples to test:
+
+#Here are som examples to test:
      
 censor("max is so maxy and m max ma","max")
 censor("abc123","abc123")
 censor("abc12","abc123")
 censor("abc123","abc12")
 censor("noah is not on noah's arc because no noah would know","noah")
-"""
+censor("noah is not on noah's arc because no noah would know","NoAh")
+censor("NOAH is not on nOAh's arc because no NoaH would know","NoAh")
